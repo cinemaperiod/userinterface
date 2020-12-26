@@ -1,0 +1,145 @@
+{
+  "trending": {
+    "heading": "Latest News",
+    "posts": [
+      {
+        "category": "Hot Update",
+        "title": "Actor Dhanush's upcoming movies",
+        "author": "Muthu",
+        "date": "26th December, 2020",
+        "tag": "Tamil Movies"
+      },
+      {
+        "category": "Upcoming Release",
+        "title": "Sultan - OTT or Theatre?",
+        "author": "Muthu",
+        "date": "25th December, 2020",
+        "tag": "Tamil Movies"
+      },
+      {
+        "category": "Reviews",
+        "title": "Darbar - Thalaivar not in the right script",
+        "author": "Akash Muthu",
+        "date": "11th January, 2020",
+        "tag": "Tamil Cinema"
+      },
+      {
+        "category": "Reviews",
+        "title": "Kappela - Beautiful & heartwarming",
+        "author": "Akash Muthu",
+        "date": "9th July, 2019",
+        "tag": "Malayalam Cinema"
+      },
+	  {
+        "category": "Reviews",
+        "title": "Kappela - Beautiful & heartwarming",
+        "author": "Akash Muthu",
+        "date": "9th July, 2019",
+        "tag": "Malayalam Cinema"
+      }
+    ]
+  },
+  "latest": {
+    "heading": "Latest",
+    "posts": [
+      {
+        "category": "Cinema",
+        "title": "Mass stars tobring back masses back to theatres",
+        "author": "Akash Muthu",
+        "date": "25th December, 2020",
+        "tag": "Theatre"
+      },
+      {
+        "category": "Movies",
+        "title": "Pandemic - Boom or Bane?",
+        "author": "Akash Muthu",
+        "date": "1st September, 2020",
+        "tag": "Movies"
+      },
+      {
+        "category": "OTT Movies",
+        "title": "Best Movies to binge watch in OTT",
+        "author": "Akash Muthu",
+        "date": "15th December, 2020",
+        "tag": "Prime, Netflix, Hotstar"
+      },
+      {
+        "category": "Web Series",
+        "title": "Highest viewed web series",
+        "author": "Akash Muthu",
+        "date": "5th December, 2020",
+        "tag": "Prime, Netflix"
+      }
+    ]
+  },
+  "sliderData": [
+    {
+      "imgSrc": "https://cdn.dnaindia.com/sites/default/files/styles/full/public/2020/08/22/920553-suriya-soorarai-pottru.jpg",
+      "title": "Best Movies of 2020 - Tamil",
+      "author": "Akash Muthu",
+      "date": "30th December, 2020"
+    },
+    {
+      "imgSrc": "https://occ-0-1001-444.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABfDqVfGEgUxFd9JCJYKOdan1dJiVJumrwTIHZXhhgYPwfzhs7-zouKQ_T811lHckfuQtdAuqlN78Sg8AcDvkIzKzvvo5.jpg?r=daf",
+      "title": "Paava Kadhaigal - Anthology that we can be proud of",
+      "author": "Akash Muthu",
+      "date": "29th December, 2020"
+    },
+    {
+      "imgSrc": "https://www.moviedash.com/wp-content/uploads/2020/05/Tenet-Theories-1.jpeg",
+      "title": "Tenet - Nolan's special is not that special after all this time",
+      "author": "Akash Muthu",
+      "date": "29th December, 2020"
+    },
+    {
+      "imgSrc": "https://i.ytimg.com/vi/fPueXWDpI2Q/maxresdefault.jpg",
+      "title": "Kanni Raasi - The Vimal Anna we know is back",
+      "author": "Akash Muthu",
+      "date": "29th December, 2020"
+    }
+  ],
+  "blockPosts": {
+    "heading": "Top Movies",
+    "data": [
+      {
+        "imgSrc": "https://static.toiimg.com/photo.cms?msid=79840651&resizemode=4",
+        "title": "Vanguard",
+        "stars": 2,
+        "author": "Akash Muthu"
+      },
+      {
+        "imgSrc": "https://assets-news-bcdn.dailyhunt.in/cmd/resize/400x400_80/fetchdata16/images/35/d3/9b/35d39bf1ca4bca20576386db9ba2cf5e90f22983307392d4131ec487fbec6e00.jpg",
+        "title": "Solor brathuke so better",
+        "stars": 2,
+        "author": "Akash Muthu"
+      },
+      {
+        "imgSrc": "https://thehauterfly.com/wp-content/uploads/2020/11/indoo-ki-jawani-trailer-kiara-advani-aditya-seal.png",
+        "title": "Indoo ki jawani",
+        "stars": 4,
+        "author": "Akash Muthu"
+      },
+      {
+        "imgSrc": "https://www.cinibash.com/wp-content/uploads/2020/11/kavalthurai-ungal-nanban-movie-public-response.jpg",
+        "title": "Kaavalthurai ungal nanban",
+        "stars": 3,
+        "author": "Akash Muthu"
+      }
+    ]
+  },
+  "tabPosts": {
+    "heading": "Most Viewed Posts of this Month",
+    "data": [
+      "How is RJ Balaji belting out hit after hit?",
+      "Why Soorarai Potru and Mookuthi Amman is different from other Tamil OOT releases?",
+      "Sai Pallavi on her role in Paava Kadhaigal",
+      "How the cine goers are coping in a post-pandemic situation?",
+      "Gal Gadot - What makes her so special even among celebrities?",
+      "The nepotism war is always brewing - Let's bring it to a temporary conclusion NOW!!",
+      "Andhakaaram - A slow burn thriller that keeps you on the edge of your seat throughout",
+      "Triples (Web Series) - A one way ticket to some light hearted entertainment",
+      "The best subscription deals for OTT platforms - Amazon Prime, Netflix and more",
+      "Take a look at the theatre and OTT releases for the Christmas 2020"
+    ]
+  }
+}
