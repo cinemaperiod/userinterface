@@ -7,7 +7,7 @@ export default function HeadComponent({ title = 'Cinema Buddy', description = 'C
         <meta name='description' content={description} />
         <meta name='robots' content='index,follow' />
         <link rel='canonical' href={canonicalUrl} />
-        <meta name='viewport' content='width=initial-width, initial-scale=1' />
+        <meta name='viewport' content='width=device-width, initial-scale=1' />
         <meta charset='utf-8' />
     </Head>
   );
