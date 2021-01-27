@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
-import HeadComponent from '../components/Head';
-import FooterComponent from '../components/Footer';
-import MobileNavigation from '../components/MobileNavigation';
-import DesktopNavigation from '../components/DesktopNavigation';
-// import data from '../data/homepage.json';
-import Star from '../components/Star';
 
-export default function Home({ homePageData = {} }) {
+export default function Slider() {
   const [windowWidth, setWindowWidth] = useState(768);
   const [slideOptions, setSlideOptions] = useState({
     translate: 0,
@@ -14,32 +8,25 @@ export default function Home({ homePageData = {} }) {
     activeSlideIndex: 0,
     containerWidth: 0,
   });
-  const [data, setData] = useState(homePageData);
-  
+
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    setSlideOptions({...slideOptions, containerWidth: document.querySelector('.swiper-wrapper').offsetWidth});
+    setSlideOptions({...slideOptions, containerWidth: document.querySelector('.swiper-wrapper')?.offsetWidth});
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
-      setSlideOptions({...slideOptions, containerWidth: document.querySelector('.swiper-wrapper').offsetWidth});
+      setSlideOptions({...slideOptions, containerWidth: document.querySelector('.swiper-wrapper')?.offsetWidth});
     }
     window.addEventListener('resize', handleWindowResize);
-    document.querySelector('html').style.visibility = 'visible';
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);
-  
+
   const navigateSlider = (index) => {
     setSlideOptions({...slideOptions, activeSlideIndex: index });
   }
-
-  const goTopostPage = (pageIndex) => {
-    console.log(pageIndex, ' is the page');
-  }
-
+  
   const goPrev = () => {
     let newActiveSlideIndex = null;
     if (slideOptions.activeSlideIndex === 0) {
-      newActiveSlideIndex = data.sliderData.length - 1;
+      newActiveSlideIndex = Array.from(Array(4)).length - 1;
     } else {
       newActiveSlideIndex = slideOptions.activeSlideIndex - 1;
     }
@@ -48,7 +35,7 @@ export default function Home({ homePageData = {} }) {
 
   const goNext = () => {
     let newActiveSlideIndex = null;
-    if (slideOptions.activeSlideIndex === data.sliderData.length - 1) {
+    if (slideOptions.activeSlideIndex === Array.from(Array(4)).length - 1) {
       newActiveSlideIndex = 0;
     } else {
       newActiveSlideIndex = slideOptions.activeSlideIndex + 1;
@@ -57,193 +44,86 @@ export default function Home({ homePageData = {} }) {
   }
 
   return (
-    <div className='container'>
-      <HeadComponent />
-      <main className='main'>
-        {windowWidth < 768 ? <MobileNavigation /> : <DesktopNavigation />}
-        <section className='row'>
-          <div className='latest-section col-md-3'>
-            <h4 className='text-uppercase trendingHeading'>{data && data.trending && data.trending.heading}</h4>
-            {data && data.trending && data.trending.posts.length > 0 && data.trending.posts.slice(0, 6).map((post, index) => {
-              return (
-                <div className='border-top mt-1' key={index}>
-                  <div className='post-item-wrapper'>
-                    <a href='' className='category-link text-uppercase'>{post.category}</a>
-                    <div className='post-title-wrapper'>
-                      <h5><a href={post.url} target='_blank'>{post.title}</a></h5>
-                    </div>
-                    <div className='author-wrapper'>
-                      <h5><a href='javascript:void(0)'>By {post.author}</a></h5>
-                      <span>{post.date}</span>
-                    </div>
-                    <div className='tag-wrapper'>
-                      <a href='javascript:void(0)'>{post.tag}</a>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-            <a href='/reviews/allreviews' className='allReviews'>See all posts</a>
-          </div>
-          <div className='slider-section col-md-6 side-border'>
-            <div className='swiper-container'>
-              <div className='swiper-wrapper' style={{ transition: 'transform 0.3s cubic-bezier(0.995, 0.020, 0.000, -0.015)', transform: `translate3d(-${slideOptions.containerWidth * slideOptions.activeSlideIndex}px, 0, 0)` }}>
-                {data && data.sliderData && data.sliderData.length > 0 && data.sliderData.map((slide, index) => {
-                  return (
-                    <div className='swiper-slide' key={index}>
-                      <div className='featured-post-wrapper'>
-                        <div className='featured-img-wrapper'>
-                          <img src={slide.imgSrc} />
-                        </div>
-                        <div className='featured-details-wrapper'>
-                          <h2 className='featured-title'>
-                            <a href=''>{slide.title}</a>
-                          </h2>
-                          <div className='featured-author'>
-                            <a href=''>By {slide.author}</a>
-                            <span>{slide.date}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )
-                })}
+    <div className='slider-section col-md-6 side-border'>
+      <div className='swiper-container'>
+        <div className='swiper-wrapper' style={{ transition: 'transform 0.3s cubic-bezier(0.995, 0.020, 0.000, -0.015)', transform: `translate3d(-${slideOptions.containerWidth * slideOptions.activeSlideIndex}px, 0, 0)` }}>
+          <div className='swiper-slide'>
+            <div className='featured-post-wrapper'>
+              <div className='featured-img-wrapper'>
+                <img src="https://cdn.dnaindia.com/sites/default/files/styles/full/public/2020/08/22/920553-suriya-soorarai-pottru.jpg" />
               </div>
-              <div className='swiper-navigation'>
-                {data && data.sliderData && data.sliderData.length > 0 && data.sliderData.map((slide, index) => {
-                  return (<span key={index} className={slideOptions.activeSlideIndex === index ? 'swiper-bullet swiper-bullet-active' : 'swiper-bullet'} onClick={() => navigateSlider(index)}></span>);
-                })}
-              </div>
-              <div className='swiper-button-prev' onClick={goPrev}>
-                <span className='icon-left'>&#171;</span>
-              </div>
-              <div className='swiper-button-next' onClick={goNext}>
-                <span className='icon-right'>&#187;</span>
-              </div>
-            </div>
-          </div>
-          <div className='trending-section col-md-3'>
-            <h4 className='text-uppercase latestHeading'>{data && data.latest && data.latest.heading}</h4>
-            {data && data.latest && data.latest.posts.length > 0 && data.latest.posts.slice(0, 11).map((post, index) => {
-              return (
-                <div className='border-top mt-1' key={index}>
-                  <div className='post-item-wrapper'>
-                    <a href='' className='category-link text-uppercase'>{post.platform}</a>
-                    <div className='post-title-wrapper upcoming-releases'>
-                      <h5 style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <div style={{ flexBasis: '40%' }}>{post.name}</div>
-                        <div>{post.date}</div>
-                      </h5>
-                    </div>
-                    <span>{post.language}</span>
-                    {/* <div className='author-wrapper'>
-                      <h5><a href='javascript:void(0)'>By {post.author}</a></h5>
-                      <span>{post.date}</span>
-                    </div>
-                    <div className='tag-wrapper'>
-                      <a href='javascript:void(0)'>{post.tag}</a>
-                    </div> */}
-                  </div>
-                </div>
-              );
-            })}
-            {/* <a href='/reviews/allreviews' className='allReviews'>See all posts</a> */}
-          </div>
-        </section>
-        <section className='row overlay-container'>
-          <h4 className='text-uppercase trendingHeading'>{data && data.blockPosts && data.blockPosts.heading}</h4>
-          {data && data.blockPosts && data.blockPosts.data.length > 0 && data.blockPosts.data.map((block, index) => {
-            return (
-              <div className='column col-md-3' key={index}>
-                <div className='col-overlay'>
-                  <a href='' className='overlay-block'>
-                    <figure>
-                      <img src={block.imgSrc} />
-                      <figcaption className='block-figcaption'>
-                        <h6>{block.title}</h6>
-                        <div className='block-details'>
-                          <div className='block-stars'>
-                            {[...new Array(block.stars)].map((num, index)=> <Star key={index} />)}
-                          </div>
-                          <div className='block-author'>
-                            {block.author}
-                          </div>
-                        </div>
-                      </figcaption>
-                    </figure>
-                  </a>
-                </div>
-              </div>
-            )
-          })}
-        </section>
-        <section className='row'>
-          <section className='side-block-title'>
-            <span className='side-block-overline'></span>
-            <h3 className='side-block-heading'>Evergreen Classic</h3>
-          </section>
-          <section className='side-block-content'>
-            <div className='side-block-columns'>
-              <div className='col-md-4 side-block-data'>
-                <h2 className='side-block-main-heading'>
-                  <a href=''>The best superhero movie is here - The best visual treat for fans</a>
+              <div className='featured-details-wrapper'>
+                <h2 className='featured-title'>
+                  <a href=''>Best Movies of 2020 - Tamil</a>
                 </h2>
-                <div className='side-block-line'>
-                  With a galaxy of superhero characters, each having a legacy of their own, the villian matches them all single-handedly and makes this a great cinematic experience.
+                <div className='featured-author'>
+                  <a href=''>By Akash</a>
+                  <span>30 Dec, 2020</span>
                 </div>
-                <div className='side-block-subheading'>
-                  <a href=''>Arun Srinivas</a>
-                </div>
-                <div className='side-block-time'>
-                  25th December, 2020
-                </div>
-              </div>
-              <div className='col-md-8 side-block-img'>
-                <a href=''>
-                  <img src='https://www.minnpost.com/wp-content/uploads/2019/05/ThorAvengersEndgame640.jpg?fit=640%2C405&strip=all' />
-                </a>
               </div>
             </div>
-          </section>
-        </section>
-        <section className='row'>
-          <section className="side-block-title">
-            <span className="side-block-overline"></span>
-            <h3 className="side-block-heading">{data && data.tabPosts && data.tabPosts.heading || 'Most Viewed Posts of the Month'}</h3>
-          </section>
-          <section className='tabs-container'>
-            <ul className='movie-list-container-1'>
-              {data && data.tabPosts && data.tabPosts.data && data.tabPosts.data.length > 0 && data.tabPosts.data.slice(0, 5).map((tabPost, index) => {
-                return (
-                  <li key={index} className='movie-list-item' onClick={() => goTopostPage(index+1)}>
-                    <div className='tab-list-item-container'>
-                      <span>{index+1}</span>
-                      <div>
-                        <h4>{tabPost}</h4>
-                      </div>
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
-            <ul className='movie-list-container-2'>
-              {data && data.tabPosts && data.tabPosts.data && data.tabPosts.data.length > 0 && data.tabPosts.data.slice(5, 10).map((tabPost, index) => {
-                return (
-                  <li key={index} className='movie-list-item' onClick={() => goTopostPage(index+6)}>
-                    <div className='tab-list-item-container'>
-                      <span>{index+6}</span>
-                      <div>
-                        <h4>{tabPost}</h4>
-                      </div>
-                    </div>
-                  </li>
-                )
-              })}
-            </ul>
-          </section>
-        </section>
-      </main>
-      <FooterComponent />
+          </div>
+          <div className='swiper-slide'>
+            <div className='featured-post-wrapper'>
+              <div className='featured-img-wrapper'>
+                <img src="https://occ-0-1001-444.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABfDqVfGEgUxFd9JCJYKOdan1dJiVJumrwTIHZXhhgYPwfzhs7-zouKQ_T811lHckfuQtdAuqlN78Sg8AcDvkIzKzvvo5.jpg?r=daf" />
+              </div>
+              <div className='featured-details-wrapper'>
+                <h2 className='featured-title'>
+                  <a href=''>Paava Kadhaigal - Anthology that we can be proud of</a>
+                </h2>
+                <div className='featured-author'>
+                  <a href=''>By Akash Muthu</a>
+                  <span>29 Dec, 2020</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='swiper-slide'>
+            <div className='featured-post-wrapper'>
+              <div className='featured-img-wrapper'>
+                <img src="https://www.moviedash.com/wp-content/uploads/2020/05/Tenet-Theories-1.jpeg" />
+              </div>
+              <div className='featured-details-wrapper'>
+                <h2 className='featured-title'>
+                  <a href=''>Tenet - Nolan's special is not that special after all this time</a>
+                </h2>
+                <div className='featured-author'>
+                  <a href=''>By 20th Dec, 2020</a>
+                  <span>29 Dec, 2020</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className='swiper-slide'>
+            <div className='featured-post-wrapper'>
+              <div className='featured-img-wrapper'>
+                <img src="https://i.ytimg.com/vi/fPueXWDpI2Q/maxresdefault.jpg" />
+              </div>
+              <div className='featured-details-wrapper'>
+                <h2 className='featured-title'>
+                  <a href=''>Kanni Raasi - The Vimal Anna we know is back</a>
+                </h2>
+                <div className='featured-author'>
+                  <a href=''>By Akash Muthu</a>
+                  <span>25 Dec, 2020</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className='swiper-navigation'>
+          {Array.from(Array(4))?.map((slide, index) => {
+            return (<span key={index} className={slideOptions.activeSlideIndex === index ? 'swiper-bullet swiper-bullet-active' : 'swiper-bullet'} onClick={() => navigateSlider(index)}></span>);
+          })}
+        </div>
+        <div className='swiper-button-prev' onClick={goPrev}>
+          <span className='icon-left'>&#171;</span>
+        </div>
+        <div className='swiper-button-next' onClick={goNext}>
+          <span className='icon-right'>&#187;</span>
+        </div>
+      </div>
       <style jsx>{`
         .container {
           min-height: 100vh;
@@ -295,6 +175,7 @@ export default function Home({ homePageData = {} }) {
         }
         .post-title-wrapper:hover, .featured-title:hover > a {
           text-decoration: underline;
+          cursor: pointer;
         }
         .post-title-wrapper.upcoming-releases:hover {
           text-decoration: none;
@@ -333,7 +214,7 @@ export default function Home({ homePageData = {} }) {
           font-size: 1rem;
           color: #292929;
         }
-        .allReviews {
+        .btn {
           font-size: 1.4rem;
           font-weight: 500;
           padding: 1rem 1.5rem;
@@ -346,7 +227,7 @@ export default function Home({ homePageData = {} }) {
           text-align: center;
           border-radius: 0.4rem;
         }
-        .allReviews:hover {
+        .btn:hover {
           text-decoration: underline;
           opacity: 0.9;
         }
@@ -721,7 +602,7 @@ export default function Home({ homePageData = {} }) {
           .swiper-button-next {
             right: 0.5rem;
           }
-          .allReviews {
+          .btn {
             margin-bottom: 1rem;
           }
         }
@@ -729,17 +610,4 @@ export default function Home({ homePageData = {} }) {
       </style>
     </div>
   );
-}
-
-export async function getStaticProps() {
-  const data = await import('../data/homepage.json');
-  const data1 = await import('../data/topicsData.json');
-  // console.log(data1.default, 'data123');
-  // console.log(Object.keys(data1.default), 'data456');
-  return {
-    props: {
-      // homePageData: Object.keys(data1.default)
-      homePageData: data.default
-    }
-  }
 }

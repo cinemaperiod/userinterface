@@ -1,8 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import navigationData from '../data/navigation.json';
 
 const MobileNavigation = () => {
   const [menuStatus, setMenuStatus] = useState(false);
+  const { menuHeading = '', menuItems = []} = navigationData || {};
+
+  useEffect(() => {
+    if (menuStatus) {
+      document.querySelector('body').style.overflow = 'hidden';
+    } else {
+      document.querySelector('body').style.overflow = 'auto';
+    }
+  }, [menuStatus]);
 
   function toggleNavigation() {
     setMenuStatus(!menuStatus);
@@ -11,16 +21,14 @@ const MobileNavigation = () => {
   return (
     <main className='dropdown-container'>
       <section className='menu-btn'>
-        <a onClick={toggleNavigation}>Menu</a>
+        <a onClick={toggleNavigation}>{menuHeading || 'Menu'}</a>
       </section>
       <nav className='dropdown-list'>
         <a className='dropdown-close' onClick={toggleNavigation}>Close</a>
         <ul className='dropdown-content'>
-          <li><Link href='/'><a>Home</a></Link></li>
-          <li><Link href='/about'><a>Reviews</a></Link></li>
-          <li><Link href='/courses'><a>Trending</a></Link></li>
-          <li><Link href='/blog'><a>OTT Special</a></Link></li>
-          <li><Link href='/contact'><a>Theatres</a></Link></li>
+          {menuItems.length > 0 && menuItems.map((menuItem, index) => {
+            return (<li key={index}><Link href={menuItem.url}><a>{menuItem.name}</a></Link></li>)
+          })}
         </ul>
       </nav>
       <style jsx>{`
@@ -39,7 +47,7 @@ const MobileNavigation = () => {
           }
           .dropdown-list {
             position: fixed;
-            z-index: 1;
+            z-index: 9999;
             top: 0;
             left: 0;
             width: 100%;
@@ -109,9 +117,22 @@ const MobileNavigation = () => {
             line-height: 60px;
             border-bottom: 0.5px solid lightgrey;
           }
+          @media only screen and (max-width: 768px) {
+            .menu-btn {
+              text-align: center;
+            }
+          }
       `}
       </style>
     </main>);
+}
+
+export async function getStaticProps() {
+  return {
+    props: {
+      navigationData: navigationData
+    }
+  }
 }
 
 export default MobileNavigation;

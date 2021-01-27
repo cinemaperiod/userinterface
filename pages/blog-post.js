@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import HeadComponent from '../components/Head';
 import FooterComponent from '../components/Footer';
-import CodeBlock from '../components/CodeBlock';
 import MobileNavigation from '../components/MobileNavigation';
 import DesktopNavigation from '../components/DesktopNavigation';
 // import blog from '../data/blog.json';
@@ -14,13 +13,13 @@ export default function Home(props) {
     setWindowWidth(window.innerWidth);
     const handleWindowResize = () => setWindowWidth(window.innerWidth)
     window.addEventListener('resize', handleWindowResize);
-
+    document.querySelector('html').style.visibility = 'visible';
     return () => window.removeEventListener('resize', handleWindowResize);
   }, []);
   
   return (
     <div className='container'>
-      <HeadComponent title='Blog - Cienma Buddy' />
+      <HeadComponent title='Cinema Period - Blog Post' />
       <main className='main'>
         {windowWidth < 768 ? <MobileNavigation /> : <DesktopNavigation />}
         <section className='main-container'>
@@ -67,18 +66,12 @@ export default function Home(props) {
               </section>
 
               <section className='card video-card'>
-                <iframe width="600" height="400" src={post.youtubeLinks[0].trailer} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <iframe width="600" height="400" src={post.youtubeLinks[0].trailer} frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
               </section>
 
               <section className='card'>
                 <p>{post.reviewContent[1]}</p>
               </section>
-
-              {/* <section href="https://nextjs.org/learn" className='card'>
-                <a href='' className='downloadBtn' download>
-                  <button>Download Code</button>
-                </a>
-              </section> */}
 
               <section className='card'>
                 <p>{post.reviewContent[2]}</p>
@@ -86,25 +79,16 @@ export default function Home(props) {
               <section className='card'>
                 <p>{post.reviewContent[3]}</p>
               </section>
-              {/* <section className='card'>
-                <h3>Hello world</h3>
-                <p>Learn React JS - one of the hottest, in-demand skills in the IT industry today.</p>
-                <ul>
-                  <li>This is the first one</li>
-                  <li>This is the second one</li>
-                  <li>This is the third one</li>
-                </ul>
-              </section> */}
             </div>
 
           </section>
           <aside className='sidebar'>
             <div className='grid'>
               <section className='card'>
-                <h3>Related Reviews</h3>
-                {post && post.relatedReviews && post.relatedReviews.length > 0 && post.relatedReviews.map((review) => {
+                <h3 className='related-reviews-heading'>Related Reviews</h3>
+                {post && post.relatedReviews && post.relatedReviews.length > 0 && post.relatedReviews.map((review, index) => {
                   return (
-                    <div className='movie-card'>
+                    <div className='movie-card' key={index}>
                       <div className='movie-card-container'>
                         <img src={review.imgUrl} alt='' />
                         <a className='movie-card-data'>
@@ -117,29 +101,23 @@ export default function Home(props) {
                 })}
               </section>
               <section className='card'>
-                <h3>Social Posts</h3>
+                <h3 className='social-posts-heading'>Social Posts</h3>
                 <div className='social-tags'>
-                  {post && post.socialTags && post.socialTags.length > 0 && post.socialTags.map((tag) => {
+                  {post && post.socialTags && post.socialTags.length > 0 && post.socialTags.map((tag, index) => {
                     return (
-                      <span className={tag.media}><a href={tag.url} target='_blank'>{tag.content}</a></span>
+                      <span className={tag.media} key={index}>
+                        <a href={tag.url} target='_blank'>{tag.content}</a>
+                      </span>
                     );
                   })}
-                  {/* <span className='twitter'><a href='https://twitter.com/hashtag/CoolieNo1' target='_blank'>#CoolieNo1</a></span>
-                  <span className='twitter'><a href='https://twitter.com/hashtag/CoolieNo1' target='_blank'>#CoolieNo1</a></span>
-                  <span className='facebook'><a href='https://twitter.com/hashtag/CoolieNo1' target='_blank'>#CoolieNo1</a></span>
-                  <span className='facebook'><a href='https://twitter.com/hashtag/CoolieNo1' target='_blank'>#CoolieNo1</a></span>
-                  <span className='youtube'><a href='https://twitter.com/hashtag/CoolieNo1' target='_blank'>#CoolieNo1</a></span>
-                  <span className='youtube'><a href='https://twitter.com/hashtag/CoolieNo1' target='_blank'>#CoolieNo1</a></span>
-                  <span className='instagram'><a href='https://twitter.com/hashtag/CoolieNo1' target='_blank'>#CoolieNo1</a></span>
-                  <span className='instagram'><a href='https://twitter.com/hashtag/CoolieNo1' target='_blank'>#CoolieNo1</a></span> */}
                 </div>
               </section>
               <section className='card'>
-                <h3>Movie Gallery</h3>
+                <h3 className='movie-gallery-heading'>Movie Gallery</h3>
                 <div className='gallery-container'>
-                  {post && post.movieGallery && post.movieGallery.length > 0 && post.movieGallery.map((img) => {
+                  {post && post.movieGallery && post.movieGallery.length > 0 && post.movieGallery.map((img, index) => {
                     return (
-                      <div className='image-wrapper'>
+                      <div className='image-wrapper' key={index}>
                         <img src={img} alt={post.heading} />
                       </div>
                     )
@@ -151,6 +129,7 @@ export default function Home(props) {
         </section>
       </main>
       {/* https://cssanimation.rocks/scroll-animations/ */}
+      {/* https://developers.google.com/search/docs/guides/generate-structured-data-with-javascript */}
       <FooterComponent />
       <style jsx>{`
         .container {
@@ -216,6 +195,9 @@ export default function Home(props) {
           // max-width: 1000px;
           // width: 80vw;
           margin-top: 1.8rem;
+        }
+        .sidebar .grid, .related-reviews-heading {
+          margin-top: 0;
         }
         
         .card {
@@ -368,6 +350,7 @@ export default function Home(props) {
         .gallery-container > .image-wrapper > img  {
           width: 100%;
           max-width: 100%;
+          min-height: 100%;
           border-radius: 0.5rem;
           max-height: 150px;
           cursor: pointer;
@@ -377,7 +360,13 @@ export default function Home(props) {
           opacity: 0.9;
           transform: scale(1.05);
         }
-        @media only screen and (max-width: 600px) {
+        @media only screen and (max-width: 1200px) and (min-width: 768px) {
+          .main-container > .content {
+            flex-basis: 100%;
+            max-width: 100%;
+          }
+        }
+        @media only screen and (max-width: 768px) {
           .title {
             font-size: 3.5rem;
           }
@@ -407,7 +396,7 @@ export default function Home(props) {
           }
         }
 
-        @media only screen and (max-width: 600px) {
+        @media only screen and (max-width: 768px) {
           .container {
             overflow: hidden;
             margin: 0;
@@ -446,6 +435,14 @@ export default function Home(props) {
             width: 100%;
             max-width: 100%;
             flex-basis: 100%;
+          }
+          .social-posts-heading, 
+          .related-reviews-heading, 
+          .movie-gallery-heading {
+            text-align: center;
+          }
+          .social-tags {
+            justify-content: center;
           }
         }
       `}
